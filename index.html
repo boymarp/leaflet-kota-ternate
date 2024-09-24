@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaflet JS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet"
+        href="plugins/leaflet.mouseCoordinate-master/leaflet.mouseCoordinate-master/dist/leaflet.mousecoordinate.css">
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script
+        src="plugins/leaflet.mouseCoordinate-master/leaflet.mouseCoordinate-master/dist/leaflet.mousecoordinate.js"></script>
+
+
+    <script>
+        // Inisialisasi peta
+        var map = L.map("map").setView([0.8081679, 127.3406410], 13);
+
+        // Tile Layer Base Map
+        var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        });
+
+        var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        var rupabumiindonesia = L.tileLayer('https://geoservices.big.go.id/rbi/rest/services/BASEMAP/Rupabumi_Indonesia/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Badan Informasi Geospasial'
+        });
+
+        var Google_Roadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ["mt0", "mt1", "mt2", "mt3"],
+            attribution: 'Google'
+        });
+
+        // Menambahkan basemap ke dalam peta
+        osm.addTo(map);
+
+        // Marker
+        var marker = L.marker([0.8081679, 127.3406410]);
+        var marker2 = L.marker([0.8360, 127.307298]);
+
+
+
+
+        // Menambahkan marker ke dalam peta
+        // marker.addTo(map);
+        // marker2.addTo(map)
+
+        // Popup
+        var popup_content = "<h3>Kota Ternate</h3>" +
+            "<p>Kota Ternate adalah sebuah kota yang terletak di Provinsi Maluku Utara, Indonesia. Kota Ternate berada di bawah kaki gunung api Gamalama di Pulau Ternate. Kota Ternate pernah menjadi ibu kota sementara Provinsi Maluku Utara secara de facto dari tahun 1999 hingga 2010. Pada tanggal 4 Agustus 2010, Sofifi diresmikan menjadi ibu kota Provinsi Maluku Utara pengganti Kota Ternate, yang merupakan sebuah kelurahan di wilayah Kota Tidore Kepulauan yang berada di Pulau Halmahera</p>" +
+            "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Land_Mark_Ternate.jpg/250px-Land_Mark_Ternate.jpg' width = '200'>" + "<br>" +
+            "<a href='https://id.wikipedia.org/wiki/Kota_Ternate' target='_blank'>https://id.wikipedia.org/wiki/Kota_Ternate</a>";
+        marker.bindPopup(popup_content)
+
+        // marker.bindPopup("<Ini adalah market");
+        // marker2.openPopup("ini Danau Tolire");
+
+        // Circle
+        var circle = L.circle([0.8081679, 127.3406410], {
+            color: "blue", // warna garis
+            opacity: 0.7, // opacity garis
+            fillColor: "#f03", // warna fill
+            fillOpacity: 0.5, // opacity fill
+            radius: 1000, // radius dalam meter
+        });
+
+        // Menambahkan circle ke dalam peta
+        // circle.addTo(map);
+
+        // Popup
+        circle.bindPopup("<b>Hallo</b><br>Ini adalah radius");
+
+        // Tooltip
+        circle.bindTooltip("Ini adalah tooltip circle", { sticky: true });
+        circle.openTooltip();
+
+        // Polyline
+        var vertexPolyline = [
+            [0.7961184, 127.3862600],
+            [0.8386217, 127.3711967],
+            [0.8425695, 127.3123169],
+        ];
+        var polyline = L.polyline(vertexPolyline, {
+            color: "red", // warna garis
+            weight: 3, // ketebalan garis
+            opacity: 1, // opacity garis
+        });
+
+        // Menambahkan polyline ke dalam peta
+        polyline.addTo(map);
+
+        // Popup
+        polyline.bindPopup("<b>Hallo</b><br>Ini adalah popup Polyline");
+
+        // Tooltip
+        polyline.bindTooltip("Ini adalah tooltip polyline", { sticky: true });
+
+        // Polygon
+        var vertexPolygon = [
+            [0.8358754, 127.3713684],
+            [0.8502934, 127.3363495],
+            [0.8293530, 127.3414993],
+            [0.8276365, 127.3552322],
+            [0.8204275, 127.3698235]
+        ];
+        var polygon = L.polygon(vertexPolygon, {
+            color: "purple", // warna garis
+            weight: 3, // ketebalan garis
+            opacity: 1, // opacity garis
+            fillColor: "#0f3", // warna fill
+            fillOpacity: 0.5, // opacity fill
+        });
+
+        // Popup
+        polygon.bindPopup("<b>Hallo</b><br>Ini adalah popup");
+        //polygon.openPopup();
+
+        // Tooltip
+        polygon.bindTooltip("Ini adalah tooltip");
+        //polygon.openTooltip();
+
+        // Menambahkan polygon ke dalam peta
+        // polygon.addTo(map);
+
+        // Scale
+        var scale = L.control.scale({
+            position: "bottomright",
+            maxWidth: 200,
+            imperial: false,
+        });
+        scale.addTo(map);
+
+        // Geolocation
+        map.locate({
+            setView: false,
+            maxZoom: 16,
+        });
+
+        // Fungsi untuk menampilkan lokasi
+        function onLocationFound(e) {
+            var radius = e.accuracy / 2;
+
+            // Menampilkan marker pada lokasi 
+            L.marker(e.latlng).addTo(map).bindPopup("Anda berada dalam radius " + radius + " meter dari titik ini").openPopup();
+
+            // Menampilkan circle pada lokasi
+            L.circle(e.latlng, radius).addTo(map);
+        }
+
+        //map.on("locationfound", onLocationFound);
+
+        // Fungsi untuk menampilkan pesan error
+        function onLocationError(e) {
+            alert(e.message);
+        }
+
+        //map.on("locationerror", onLocationError);
+
+
+        // Control Layer
+        var baseMaps = {
+            "OpenStreetMap": osm,
+            "Esri World Imagery": Esri_WorldImagery,
+            "Rupa Bumi Indonesia": rupabumiindonesia,
+            "Google Road Map": Google_Roadmap
+        };
+
+        var overlayMaps = {
+            "Marker": marker,
+            "Danau Tolire": marker2,
+            "Circle": circle,
+            "polyline": polyline,
+            "polygon": polygon
+
+        };
+
+        var controllayer = L.control.layers(baseMaps, overlayMaps, {
+            collapsed: false
+        });
+        controllayer.addTo(map);
+
+        // mouse coordinate
+        L.control.mouseCoordinate({ gps: true, utm: true, gpsLong: false, position: "bottomleft" }).addTo(map);
+
+        // logo
+        L.Control.Watermark = L.Control.extend({
+            onAdd: function (map) {
+                var img = L.DomUtil.create('img');
+
+                img.src = 'images/lohoklhk.png';
+                img.style.width = '100px';
+
+                return img;
+            },
+
+            onRemove: function (map) {
+                // Nothing to do here
+            }
+        });
+
+        L.control.watermark = function (opts) {
+            return new L.Control.Watermark(opts);
+        }
+
+        L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+
+    </script>
+</body>
+
+</html>
